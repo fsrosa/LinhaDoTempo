@@ -1,9 +1,10 @@
+import React from 'react'
+import Routes from './routes'
+
 function App() {
   return (
     <div>
-      Hello, World! I'm Time Line App!
-
-      (I'm testing to show to Patrick)
+      <Routes />
     </div>
   );
 }
