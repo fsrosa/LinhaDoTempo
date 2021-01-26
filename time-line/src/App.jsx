@@ -1,7 +1,7 @@
 function App() {
   return (
-    <div className="App">
-      Hello, World! I'm Time Line App!
+    <div>
+      Hello, World! I'm Time Line App! Test
     </div>
   );
 }
