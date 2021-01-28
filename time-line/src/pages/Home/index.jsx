@@ -35,15 +35,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
     const classes = useStyles()
-    const [anchorEl, setAnchorEl] = useState(null)
-    const open = Boolean(anchorEl)
+    const [anchorElUser, setAnchorElUser] = useState(null)
+    const [anchorElAdd, setAnchorElAdd] = useState(null)
+    const openUser = Boolean(anchorElUser)
+    const openAdd = Boolean(anchorElAdd)
 
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget)
+    const handleMenuUser = (event) => {
+        setAnchorElUser(event.currentTarget)
     }
 
-    const handleClose = (event) => {
-        setAnchorEl(null)
+    const handleCloseUser = (event) => {
+        setAnchorElUser(null)
+    }
+
+    const handleMenuAdd = (event) => {
+        setAnchorElAdd(event.currentTarget)
+    }
+
+    const handleCloseAdd = (event) => {
+        setAnchorElAdd(null)
     }
 
     return (
@@ -64,19 +74,42 @@ export default function Home() {
                             src={logoIcon}
                             alt="timeline-logo"
                         ></img>
-                        <IconButton>
+                        <IconButton
+                            aria-label="add action"
+                            aria-haspopup="true"
+                            aria-controls="menu-add"
+                            onClick={handleMenuAdd}
+                        >
                             <AddCircleOutlineIcon
                                 color="primary"
                                 fontSize="large"
                             />
                         </IconButton>
+                        <Menu
+                            id="menu-add"
+                            anchorEl={anchorElAdd}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                            open={openAdd}
+                            onClose={handleCloseAdd}
+                        >
+                            <MenuItem onClick={handleCloseAdd}>Adicionar História</MenuItem>
+                            <MenuItem onClick={handleCloseAdd}>Adicionar Linha do Tempo</MenuItem>
+                        </Menu>
                     </Typography>
                     <div className="home-user-icon">
                         <IconButton
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
-                            onClick={handleMenu}
+                            onClick={handleMenuUser}
                             color="primary"
                         >
                             <h6>Ana Santos</h6>
@@ -84,23 +117,23 @@ export default function Home() {
                         </IconButton>
                         <Menu
                             id="menu-appbar"
-                            anchorEl={anchorEl}
+                            anchorEl={anchorElUser}
                             anchorOrigin={{
                                 vertical: 'top',
-                                horizontal: 'center',
+                                horizontal: 'right',
                             }}
                             keepMounted
                             transformOrigin={{
                                 vertical: 'top',
-                                horizontal: 'center',
+                                horizontal: 'right',
                             }}
-                            open={open}
-                            onClose={handleClose}
+                            open={openUser}
+                            onClose={handleCloseUser}
 
                         >
-                            <MenuItem onClick={handleClose}>Minha Conta</MenuItem>
-                            <MenuItem onClick={handleClose}>Minhas Histórias</MenuItem>
-                            <MenuItem onClick={handleClose}>Minhas Linhas do Tempo</MenuItem>
+                            <MenuItem onClick={handleCloseUser}>Minha Conta</MenuItem>
+                            <MenuItem onClick={handleCloseUser}>Minhas Histórias</MenuItem>
+                            <MenuItem onClick={handleCloseUser}>Minhas Linhas do Tempo</MenuItem>
                         </Menu>
                     </div>
                 </Toolbar>
