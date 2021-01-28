@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
     const classes = useStyles()
-    const [auth, setAuth] = useState(true)
+    // const [auth, setAuth] = useState(true)
+    const auth = true
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
 
@@ -53,7 +54,11 @@ export default function Home() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        <img className={classes.logo} src={logoIcon}></img>
+                        <img
+                            className={classes.logo}
+                            src={logoIcon}
+                            alt="timeline-logo"
+                        ></img>
                     </Typography>
                     {auth && (
                         <div className="home-user-icon">
@@ -64,7 +69,7 @@ export default function Home() {
                                 onClick={handleMenu}
                                 color="primary"
                             >
-                                <h6>Fabrício Rosa</h6> 
+                                <h6>Fabrício Rosa</h6>
                                 <AccountCircle />
                             </IconButton>
                             <Menu
@@ -81,7 +86,7 @@ export default function Home() {
                                 }}
                                 open={open}
                                 onClose={handleClose}
-                                
+
                             >
                                 <MenuItem>Minha Conta</MenuItem>
                                 <MenuItem>Minhas Histórias</MenuItem>
