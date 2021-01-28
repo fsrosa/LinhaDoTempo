@@ -33,9 +33,9 @@ export default function Home() {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
 
-    const handleChange = (event) => {
-        setAuth(event.target.checked)
-    }
+    // const handleChange = (event) => {
+    //     setAuth(event.target.checked)
+    // }
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget)
