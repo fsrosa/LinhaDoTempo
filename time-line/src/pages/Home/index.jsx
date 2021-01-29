@@ -41,6 +41,11 @@ const useStyles = makeStyles((theme) => ({
     input: {
         display: 'none',
     },
+    dialog: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems:'center',
+    },
 }))
 
 export default function Home() {
@@ -125,7 +130,7 @@ export default function Home() {
                             </Menu>
                             <Dialog open={openAddDialog} onClose={handleCloseAddDialog} aria-labelledby="form-dialog-title">
                                 <DialogTitle id="form-dialog-title">Adicionar Linha do Tempo</DialogTitle>
-                                <DialogContent>
+                                <DialogContent className={classes.dialog}>
                                     <TextField
                                         autoFocus
                                         label="Nome da Linha do Tempo"
@@ -149,13 +154,21 @@ export default function Home() {
                                             <PhotoCamera fontSize="large"/>
                                         </IconButton>
                                     </label>
+                                    <TextField
+                                        label="Resumo da Linha do Tempo:"
+                                        type="text"
+                                        margin="normal"
+                                        fullWidth
+                                        multiline
+                                        rows={6}
+                                    />
                                 </DialogContent>
                                     <DialogActions>
                                         <Button onClick={handleCloseAddDialog} color="primary">
-                                            Cancel
+                                            Cancelar
                                     </Button>
                                         <Button onClick={handleCloseAddDialog} color="primary">
-                                            Subscribe
+                                            Salvar
                                     </Button>
                                     </DialogActions>
                             </Dialog>
