@@ -16,7 +16,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
@@ -38,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     },
     logo: {
         maxHeight: "5rem",
+    },
+    input: {
+        display: 'none',
     },
 }))
 
@@ -137,12 +139,16 @@ export default function Home() {
                                         margin="normal"
                                         fullWidth
                                     />
-                                    {/* <input accept="image/*" id="icon-button-file" type="file" />
+                                    <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
                                     <label htmlFor="icon-button-file">
-                                        <IconButton color="primary" aria-label="upload picture" component="span">
-                                            <PhotoCamera />
+                                        <IconButton 
+                                            color="primary" 
+                                            aria-label="upload picture" 
+                                            component="span"
+                                        >
+                                            <PhotoCamera fontSize="large"/>
                                         </IconButton>
-                                    </label> */}
+                                    </label>
                                 </DialogContent>
                                     <DialogActions>
                                         <Button onClick={handleCloseAddDialog} color="primary">
