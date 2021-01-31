@@ -77,6 +77,10 @@ export default function Home() {
     async function handleNewTimeLine(id) {
         const token = "ABCD"
 
+        setLineName('')
+        setWebsite('')
+        setResume('')
+
         const data = {
             timeLineName,
             website,
@@ -255,7 +259,7 @@ export default function Home() {
                                     <Button onClick={handleCloseAddDialog} color="primary">
                                         Cancelar
                                     </Button>
-                                    <Button onClick={handleCloseAddDialog} color="primary">
+                                    <Button onClick={handleNewTimeLine} color="primary">
                                         Salvar
                                     </Button>
                                 </DialogActions>
