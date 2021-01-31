@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom';
+import api from '../../services/api'
+
 import './styles.css'
+import logoIcon from '../../assets/logo-linhasdotempo.gif'
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,9 +22,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
-
-
-import logoIcon from '../../assets/logo-linhasdotempo.gif'
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,17 +49,54 @@ const useStyles = makeStyles((theme) => ({
     dialog: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems:'center',
+        alignItems: 'center',
+        minWidth: '400px',
+    },
+    radioArea: {
+        margin: '15px',
     },
 }))
 
+
 export default function Home() {
     const classes = useStyles()
+
+    const history = useHistory()
+
     const [anchorElUser, setAnchorElUser] = useState(null)
     const [anchorElAdd, setAnchorElAdd] = useState(null)
     const [openAddDialog, setOpenAddDialog] = useState(false);
     const openUser = Boolean(anchorElUser)
     const openAdd = Boolean(anchorElAdd)
+
+    //TimeLine Data
+    const [timeLineName, setLineName] = useState('')
+    const [website, setWebsite] = useState('')
+    const [resume, setResume] = useState('')
+
+    async function handleNewTimeLine(id) {
+        const token = "ABCD"
+
+        const data = {
+            timeLineName,
+            website,
+            resume
+        }
+
+        try {
+            await api.post(
+                `linha/buscar/${id}`,
+                data,
+                {
+                    headers: {
+                        Authorization: token
+                    }
+                })
+            history.push('/')
+        } catch (error) {
+            alert(`Erro a criar Nova Linha: ${error}`)
+        }
+    }
 
     const handleMenuUser = (event) => {
         setAnchorElUser(event.currentTarget)
@@ -80,6 +122,7 @@ export default function Home() {
     const handleCloseAddDialog = (event) => {
         setOpenAddDialog(false)
     }
+
 
     return (
         <div className={classes.root}>
@@ -145,13 +188,13 @@ export default function Home() {
                                         fullWidth
                                     />
                                     <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-                                    <label htmlFor="icon-button-file">
-                                        <IconButton 
-                                            color="primary" 
-                                            aria-label="upload picture" 
+                                    <label htmlFor="icon-button-file" className="photo-button">
+                                        <IconButton
+                                            color="primary"
+                                            aria-label="upload picture"
                                             component="span"
                                         >
-                                            <PhotoCamera fontSize="large"/>
+                                            <PhotoCamera fontSize="large" />
                                         </IconButton>
                                     </label>
                                     <TextField
@@ -162,50 +205,94 @@ export default function Home() {
                                         multiline
                                         rows={6}
                                     />
+                                    <div className={classes.radioArea}>
+                                        Quem pode visualizar?
+                                    </div>
+                                    <div className={classes.radioArea}>
+                                        <FormControl component="fieldset">
+                                            <RadioGroup row aria-label="position" name="position" defaultValue="top">
+                                                <FormControlLabel
+                                                    value="somenteEu"
+                                                    control={<Radio color="primary" />}
+                                                    label="Somente Eu"
+                                                />
+                                                <FormControlLabel
+                                                    value="todos"
+                                                    control={<Radio color="primary" />}
+                                                    label="Todos"
+                                                />
+                                                <FormControlLabel
+                                                    value="quem"
+                                                    control={<Radio color="primary" />}
+                                                    label="Quem"
+                                                />
+                                            </RadioGroup>
+                                        </FormControl>
+
+                                    </div>
+                                    <div className={classes.radioArea}>
+                                        Quem pode publicar?
+                                    </div>
+                                    <div className={classes.radioArea}>
+                                    <FormControlLabel
+                                                    value="somenteEu"
+                                                    control={<Radio color="primary" />}
+                                                    label="Somente Eu"
+                                                />
+                                                <FormControlLabel
+                                                    value="todos"
+                                                    control={<Radio color="primary" />}
+                                                    label="Todos"
+                                                />
+                                                <FormControlLabel
+                                                    value="quem"
+                                                    control={<Radio color="primary" />}
+                                                    label="Quem"
+                                                />
+                                    </div>
                                 </DialogContent>
-                                    <DialogActions>
-                                        <Button onClick={handleCloseAddDialog} color="primary">
-                                            Cancelar
+                                <DialogActions>
+                                    <Button onClick={handleCloseAddDialog} color="primary">
+                                        Cancelar
                                     </Button>
-                                        <Button onClick={handleCloseAddDialog} color="primary">
-                                            Salvar
+                                    <Button onClick={handleCloseAddDialog} color="primary">
+                                        Salvar
                                     </Button>
-                                    </DialogActions>
+                                </DialogActions>
                             </Dialog>
                         </div>
                     </Typography>
-                        <div className="home-user-icon">
-                            <IconButton
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleMenuUser}
-                                color="primary"
-                            >
-                                <h6>Ana Santos</h6>
-                                <AccountCircle />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={openUser}
-                                onClose={handleCloseUser}
-
-                            >
-                                <MenuItem onClick={handleCloseUser}>Minha Conta</MenuItem>
-                                <MenuItem onClick={handleCloseUser}>Minhas Histórias</MenuItem>
-                                <MenuItem onClick={handleCloseUser}>Minhas Linhas do Tempo</MenuItem>
-                            </Menu>
-                        </div>
+                    <div className="home-user-icon">
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleMenuUser}
+                            color="primary"
+                        >
+                            <h6>Ana Santos</h6>
+                            <AccountCircle />
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={openUser}
+                            onClose={handleCloseUser}
+                        >
+                            <MenuItem onClick={handleCloseUser}>Minha Conta</MenuItem>
+                            <MenuItem onClick={handleCloseUser}>Minhas Histórias</MenuItem>
+                            <MenuItem onClick={handleCloseUser}>Minhas Linhas do Tempo</MenuItem>
+                        </Menu>
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>
