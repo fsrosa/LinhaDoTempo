@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import api from '../../services/api'
+import useStyles from './useStyles'
 
 import './styles.css'
 import logoIcon from '../../assets/logo-linhasdotempo.gif'
@@ -13,7 +14,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu'
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import { makeStyles } from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -27,38 +27,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-    },
-    logo: {
-        maxHeight: "5rem",
-    },
-    input: {
-        display: 'none',
-    },
-    dialog: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        minWidth: '400px',
-    },
-    radioArea: {
-        margin: '15px',
-    },
-}))
-
-
 export default function Home() {
+    const token = document.getElementById('token')
+    console.log(token.content)
     const classes = useStyles()
 
     const history = useHistory()
@@ -75,7 +46,6 @@ export default function Home() {
     const [resume, setResume] = useState('')
 
     async function handleNewTimeLine(id) {
-        const token = "ABCD"
 
         setLineName('')
         setWebsite('')
@@ -92,7 +62,7 @@ export default function Home() {
                 `linha/buscar/${id}`,
                 data,
                 {
-                    headers: {
+                    header: {
                         Authorization: token
                     }
                 })
@@ -216,17 +186,17 @@ export default function Home() {
                                         <FormControl component="fieldset">
                                             <RadioGroup row aria-label="position" name="position" defaultValue="top">
                                                 <FormControlLabel
-                                                    value="somenteEu"
+                                                    value="1"
                                                     control={<Radio color="primary" />}
                                                     label="Somente Eu"
                                                 />
                                                 <FormControlLabel
-                                                    value="todos"
+                                                    value="2"
                                                     control={<Radio color="primary" />}
                                                     label="Todos"
                                                 />
                                                 <FormControlLabel
-                                                    value="quem"
+                                                    value="3"
                                                     control={<Radio color="primary" />}
                                                     label="Quem"
                                                 />
@@ -239,17 +209,17 @@ export default function Home() {
                                     </div>
                                     <div className={classes.radioArea}>
                                     <FormControlLabel
-                                                    value="somenteEu"
+                                                    value="1"
                                                     control={<Radio color="primary" />}
                                                     label="Somente Eu"
                                                 />
                                                 <FormControlLabel
-                                                    value="todos"
+                                                    value="2"
                                                     control={<Radio color="primary" />}
                                                     label="Todos"
                                                 />
                                                 <FormControlLabel
-                                                    value="quem"
+                                                    value="3"
                                                     control={<Radio color="primary" />}
                                                     label="Quem"
                                                 />
