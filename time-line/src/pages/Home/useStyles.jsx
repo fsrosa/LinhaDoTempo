@@ -4,9 +4,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
     title: {
         flexGrow: 1,
         display: 'flex',
@@ -14,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     logo: {
-        maxHeight: "5rem",
+        maxHeight: "10vh",
     },
     input: {
         display: 'none',

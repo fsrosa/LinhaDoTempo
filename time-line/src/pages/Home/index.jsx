@@ -11,7 +11,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu'
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -32,11 +31,12 @@ export default function Home() {
 
     const history = useHistory()
 
-    const [anchorElUser, setAnchorElUser] = useState(null)
-    const [anchorElAdd, setAnchorElAdd] = useState(null)
-    const [openAddDialog, setOpenAddDialog] = useState(false);
-    const openUser = Boolean(anchorElUser)
-    const openAdd = Boolean(anchorElAdd)
+    // Anchors to Open DropDowns
+    const [anchorAddButton, setAnchorAddButton] = useState(null)
+    const [anchorUserButton, setAnchorUserButton] = useState(null)
+    
+    // States to Open Menus
+    const [openNewTimeLine, setOpenNewTimeLine] = useState(false);
 
     //TimeLine Data
     const [timeLineName, setTimeLineName] = useState('')
@@ -44,6 +44,31 @@ export default function Home() {
     const [resume, setResume] = useState('')
     const [canView, setCanView] = useState({ me: true, all: false, who: false })
     const [canEdit, setCanEdit] = useState({ me: true, all: false, who: false })
+
+    
+    const handleMenuAdd = (event) => {
+        setAnchorAddButton(event.currentTarget)
+    }
+    
+    const handleCloseAdd = () => {
+        setAnchorAddButton(null)
+    }
+    const handleMenuUser = (event) => {
+        setAnchorUserButton(event.currentTarget)
+    }
+
+    const handleCloseUser = () => {
+        setAnchorUserButton(null)
+    }
+    
+    const handleOpenNewTimeLine = () => {
+        setOpenNewTimeLine(true)
+        setAnchorAddButton(null)
+    }
+    
+    const handleCloseNewTimeLine = () => {
+        setOpenNewTimeLine(false)
+    }
 
     async function handleNewTimeLine(e) {
         e.preventDefault()
@@ -66,44 +91,10 @@ export default function Home() {
         }
     }
 
-    const handleMenuUser = (event) => {
-        setAnchorElUser(event.currentTarget)
-    }
-
-    const handleCloseUser = (event) => {
-        setAnchorElUser(null)
-    }
-
-    const handleMenuAdd = (event) => {
-        setAnchorElAdd(event.currentTarget)
-    }
-
-    const handleCloseAdd = (event) => {
-        setAnchorElAdd(null)
-    }
-
-    const handleClickOpenAddDialog = (event) => {
-        setAnchorElAdd(null)
-        setOpenAddDialog(true)
-    }
-
-    const handleCloseAddDialog = (event) => {
-        setOpenAddDialog(false)
-    }
-
-
     return (
         <div className={classes.root}>
             <AppBar position="static" >
                 <Toolbar className="home-toolbar">
-                    <IconButton
-                        className={classes.menuButton}
-                        edge="start"
-                        color="primary"
-                        aria-label="menu"
-                    >
-                        <MenuIcon />
-                    </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         <img
                             className={classes.logo}
@@ -124,7 +115,7 @@ export default function Home() {
                             </IconButton>
                             <Menu
                                 id="menu-add"
-                                anchorEl={anchorElAdd}
+                                anchorEl={anchorAddButton}
                                 anchorOrigin={{
                                     vertical: 'bottom',
                                     horizontal: 'right',
@@ -133,13 +124,13 @@ export default function Home() {
                                     vertical: 'bottom',
                                     horizontal: 'right',
                                 }}
-                                open={openAdd}
+                                open={Boolean(anchorAddButton)}
                                 onClose={handleCloseAdd}
                             >
                                 <MenuItem onClick={handleCloseAdd}>Adicionar História</MenuItem>
-                                <MenuItem onClick={handleClickOpenAddDialog}>Adicionar Linha do Tempo</MenuItem>
+                                <MenuItem onClick={handleOpenNewTimeLine}>Adicionar Linha do Tempo</MenuItem>
                             </Menu>
-                            <Dialog open={openAddDialog} onClose={handleCloseAddDialog} aria-labelledby="form-dialog-title">
+                            <Dialog open={openNewTimeLine} onClose={handleCloseNewTimeLine} aria-labelledby="form-dialog-title">
                                 <DialogTitle id="form-dialog-title">Adicionar Linha do Tempo</DialogTitle>
                                 <DialogContent className={classes.dialog}>
                                     <TextField
@@ -265,7 +256,7 @@ export default function Home() {
                                     </div>
                                 </DialogContent>
                                 <DialogActions>
-                                    <Button onClick={handleCloseAddDialog} color="primary">
+                                    <Button onClick={handleCloseNewTimeLine} color="primary">
                                         Cancelar
                                     </Button>
                                     <Button onClick={handleNewTimeLine} color="primary">
@@ -288,7 +279,7 @@ export default function Home() {
                         </IconButton>
                         <Menu
                             id="menu-appbar"
-                            anchorEl={anchorElUser}
+                            anchorEl={anchorUserButton}
                             anchorOrigin={{
                                 vertical: 'top',
                                 horizontal: 'right',
@@ -298,7 +289,7 @@ export default function Home() {
                                 vertical: 'top',
                                 horizontal: 'right',
                             }}
-                            open={openUser}
+                            open={anchorUserButton}
                             onClose={handleCloseUser}
                         >
                             <MenuItem onClick={handleCloseUser}>Minha Conta</MenuItem>
