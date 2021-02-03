@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     logo: {
-        maxHeight: "10vh",
+        minHeight: '10px',
+        maxHeight: '20vh',
     },
     input: {
         display: 'none',

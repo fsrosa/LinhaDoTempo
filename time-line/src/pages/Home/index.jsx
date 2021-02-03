@@ -274,7 +274,7 @@ export default function Home() {
                             onClick={handleMenuUser}
                             color="primary"
                         >
-                            <h6>Ana Santos</h6>
+                            <h6>Fabrício Rosa</h6>
                             <AccountCircle />
                         </IconButton>
                         <Menu
@@ -299,6 +299,7 @@ export default function Home() {
                     </div>
                 </Toolbar>
             </AppBar>
+            <div>Linhas do Tempo:</div>
         </div>
 
     )
