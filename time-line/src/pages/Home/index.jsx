@@ -28,8 +28,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 
 export default function Home() {
-    const token = document.getElementById('token')
-    console.log(token.content)
     const classes = useStyles()
 
     const history = useHistory()
@@ -41,32 +39,28 @@ export default function Home() {
     const openAdd = Boolean(anchorElAdd)
 
     //TimeLine Data
-    const [timeLineName, setLineName] = useState('')
+    const [timeLineName, setTimeLineName] = useState('')
     const [website, setWebsite] = useState('')
     const [resume, setResume] = useState('')
+    const [canView, setCanView] = useState({ me: true, all: false, who: false })
+    const [canEdit, setCanEdit] = useState({ me: true, all: false, who: false })
 
-    async function handleNewTimeLine(id) {
-
-        setLineName('')
-        setWebsite('')
-        setResume('')
+    async function handleNewTimeLine(e) {
+        e.preventDefault()
 
         const data = {
             timeLineName,
             website,
-            resume
+            resume,
+            canView,
+            canEdit
         }
 
         try {
-            await api.post(
-                `linha/buscar/${id}`,
-                data,
-                {
-                    header: {
-                        Authorization: token
-                    }
-                })
-            history.push('/')
+            const response = await api.post('linha', data)
+            alert(`Linha do Tempo registrada com sucesso. ID da Linha: ${response.data.id}`)
+
+            history.push(`/linha/buscar/${response.data.id}`)
         } catch (error) {
             alert(`Erro a criar Nova Linha: ${error}`)
         }
@@ -149,13 +143,17 @@ export default function Home() {
                                 <DialogTitle id="form-dialog-title">Adicionar Linha do Tempo</DialogTitle>
                                 <DialogContent className={classes.dialog}>
                                     <TextField
-                                        autoFocus
+                                        value={timeLineName}
+                                        onChange={e => setTimeLineName(e.target.value)}
                                         label="Nome da Linha do Tempo"
                                         type="text"
                                         margin="normal"
                                         fullWidth
+                                        autoFocus
                                     />
                                     <TextField
+                                        value={website}
+                                        onChange={e => setWebsite(e.target.value)}
                                         label="WebSite"
                                         type="url"
                                         margin="normal"
@@ -172,6 +170,8 @@ export default function Home() {
                                         </IconButton>
                                     </label>
                                     <TextField
+                                        value={resume}
+                                        onChange={e => setResume(e.target.value)}
                                         label="Resumo da Linha do Tempo:"
                                         type="text"
                                         margin="normal"
@@ -186,19 +186,36 @@ export default function Home() {
                                         <FormControl component="fieldset">
                                             <RadioGroup row aria-label="position" name="position" defaultValue="top">
                                                 <FormControlLabel
-                                                    value="1"
+                                                    checked={canView.me}
+                                                    onChange={() => {
+                                                        setCanView({ me: true, all: false, who: false })
+                                                    }}
                                                     control={<Radio color="primary" />}
                                                     label="Somente Eu"
                                                 />
                                                 <FormControlLabel
-                                                    value="2"
+                                                    checked={canView.all}
+                                                    onChange={() => {
+                                                        setCanView({ me: false, all: true, who: false })
+                                                    }}
                                                     control={<Radio color="primary" />}
                                                     label="Todos"
                                                 />
                                                 <FormControlLabel
-                                                    value="3"
+                                                    checked={canView.who}
+                                                    onChange={() => {
+                                                        setCanView({ me: false, all: false, who: true })
+                                                    }}
                                                     control={<Radio color="primary" />}
                                                     label="Quem"
+                                                />
+                                                <FormControlLabel
+                                                    onChange={() => {
+                                                        console.log(canView)
+                                                    }}
+                                                    // value="3"
+                                                    control={<Radio color="primary" />}
+                                                    label="Test State"
                                                 />
                                             </RadioGroup>
                                         </FormControl>
@@ -208,21 +225,43 @@ export default function Home() {
                                         Quem pode publicar?
                                     </div>
                                     <div className={classes.radioArea}>
-                                    <FormControlLabel
-                                                    value="1"
+                                    <FormControl component="fieldset">
+                                            <RadioGroup row aria-label="position" name="position" defaultValue="top">
+                                                <FormControlLabel
+                                                    checked={canEdit.me}
+                                                    onChange={() => {
+                                                        setCanEdit({ me: true, all: false, who: false })
+                                                    }}
                                                     control={<Radio color="primary" />}
                                                     label="Somente Eu"
                                                 />
                                                 <FormControlLabel
-                                                    value="2"
+                                                    checked={canEdit.all}
+                                                    onChange={() => {
+                                                        setCanEdit({ me: false, all: true, who: false })
+                                                    }}
                                                     control={<Radio color="primary" />}
                                                     label="Todos"
                                                 />
                                                 <FormControlLabel
-                                                    value="3"
+                                                    checked={canEdit.who}
+                                                    onChange={() => {
+                                                        setCanEdit({ me: false, all: false, who: true })
+                                                    }}
                                                     control={<Radio color="primary" />}
                                                     label="Quem"
                                                 />
+                                                <FormControlLabel
+                                                    onChange={() => {
+                                                        console.log(canEdit)
+                                                    }}
+                                                    // value="3"
+                                                    control={<Radio color="primary" />}
+                                                    label="Test State"
+                                                />
+                                            </RadioGroup>
+                                        </FormControl>
+
                                     </div>
                                 </DialogContent>
                                 <DialogActions>
