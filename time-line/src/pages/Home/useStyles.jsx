@@ -30,10 +30,6 @@ const useStyles = makeStyles((theme) => ({
     radioArea: {
         margin: '15px',
     },
-    listTimeLines: {
-        margin: '30px',
-        padding: '30px' 
-    },
 }))
 
 export default useStyles

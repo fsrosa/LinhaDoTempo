@@ -82,10 +82,11 @@ export default function Home() {
         }
 
         try {
-            const response = await api.post('linha', data)
+            const response = await api.post('linhas', data)
             alert(`Linha do Tempo registrada com sucesso. ID da Linha: ${response.data.id}`)
 
-            history.push(`/linha/buscar/${response.data.id}`)
+            // history.push(`/linha/buscar/${response.data.id}`)
+            history.push('/time-lines')
         } catch (error) {
             alert(`Erro a criar Nova Linha: ${error}`)
         }
@@ -299,11 +300,6 @@ export default function Home() {
                     </div>
                 </Toolbar>
             </AppBar>
-            <div className="container-timeLines">
-                <Button variant="contained" color="primary" className={classes.listTimeLines}>
-                    Listar Linhas do Tempo
-                </Button>
-            </div>
         </div>
 
     )
