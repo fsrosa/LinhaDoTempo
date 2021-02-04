@@ -34,7 +34,7 @@ export default function Home() {
     // Anchors to Open DropDowns
     const [anchorAddButton, setAnchorAddButton] = useState(null)
     const [anchorUserButton, setAnchorUserButton] = useState(null)
-    
+
     // States to Open Menus
     const [openNewTimeLine, setOpenNewTimeLine] = useState(false);
 
@@ -45,11 +45,11 @@ export default function Home() {
     const [canView, setCanView] = useState({ me: true, all: false, who: false })
     const [canEdit, setCanEdit] = useState({ me: true, all: false, who: false })
 
-    
+
     const handleMenuAdd = (event) => {
         setAnchorAddButton(event.currentTarget)
     }
-    
+
     const handleCloseAdd = () => {
         setAnchorAddButton(null)
     }
@@ -60,12 +60,12 @@ export default function Home() {
     const handleCloseUser = () => {
         setAnchorUserButton(null)
     }
-    
+
     const handleOpenNewTimeLine = () => {
         setOpenNewTimeLine(true)
         setAnchorAddButton(null)
     }
-    
+
     const handleCloseNewTimeLine = () => {
         setOpenNewTimeLine(false)
     }
@@ -216,7 +216,7 @@ export default function Home() {
                                         Quem pode publicar?
                                     </div>
                                     <div className={classes.radioArea}>
-                                    <FormControl component="fieldset">
+                                        <FormControl component="fieldset">
                                             <RadioGroup row aria-label="position" name="position" defaultValue="top">
                                                 <FormControlLabel
                                                     checked={canEdit.me}
@@ -299,7 +299,11 @@ export default function Home() {
                     </div>
                 </Toolbar>
             </AppBar>
-            <div>Linhas do Tempo:</div>
+            <div className="container-timeLines">
+                <Button variant="contained" color="primary" className={classes.listTimeLines}>
+                    Listar Linhas do Tempo
+                </Button>
+            </div>
         </div>
 
     )

@@ -3,6 +3,10 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     title: {
         flexGrow: 1,
@@ -25,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
     },
     radioArea: {
         margin: '15px',
+    },
+    listTimeLines: {
+        margin: '30px',
+        padding: '30px' 
     },
 }))
 
