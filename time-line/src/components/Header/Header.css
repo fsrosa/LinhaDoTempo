@@ -1,0 +1,12 @@
+.toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: whitesmoke;
+}
+
+.logo-icon {
+    min-height: 10px;
+    max-height: 15vh;
+}
