@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import PrimaryButton from '../PrimaryButton/PrimaryButton'
 
 import api from '../../services/api'
 import './BoxLogin.css'
 
 const BoxLogin = () => {
+    const history = useHistory()
+
     const [userEmail, setUserEmail] = useState('')
     const [userPassword, setUserPassword] = useState('')
 
@@ -18,8 +21,9 @@ const BoxLogin = () => {
 
         try {
             const response = await api.post('api/login', { userData })
-
             localStorage.setItem('token', response.data.token)
+
+            history.push('/time-lines')
         } catch (error) {
             alert(`Falha no Login: ${error}`)
         }
@@ -38,8 +42,8 @@ const BoxLogin = () => {
             <input
                 className="text-input"
                 type="password"
-                value={userPassword} 
-                onChange={e => setUserPassword(e.target.value)}/>
+                value={userPassword}
+                onChange={e => setUserPassword(e.target.value)} />
             <PrimaryButton variant="submit">Entrar</PrimaryButton>
             <footer>Esqueceu sua senha?</footer>
         </form>
