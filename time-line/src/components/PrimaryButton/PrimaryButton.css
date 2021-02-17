@@ -1,7 +1,6 @@
 .btn {
-    min-width: 4vw;
+    min-width: fit-content;
     max-width: 8vw;
-    width: fit-content;
     align-self: flex-end;
 }
 
