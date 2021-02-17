@@ -1,0 +1,28 @@
+.boxlogin-container {
+    /* General Styles */
+    margin: 0px;
+    margin-top: 6rem;
+    padding: 3rem;
+    min-width: 30vw;
+    max-width: 40rem;
+    border: 2px solid #222b3b;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    color: #222b3b;
+}
+
+.boxlogin-container p {
+    font-size: 1.2rem;
+    align-self: center;
+}
+
+button,
+input {
+    margin: 0.8rem;
+}
+
+.boxlogin-container .button-login {
+    margin: 1rem;
+}

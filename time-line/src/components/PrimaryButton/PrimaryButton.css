@@ -1,0 +1,20 @@
+.btn {
+    min-width: 4vw;
+    max-width: 8vw;
+    width: fit-content;
+    align-self: flex-end;
+}
+
+.btn-submit {
+    font-weight: 700;
+    font-family: Poppins, 'sans-serif';
+    color: white;
+    background-color: green;
+}
+
+.btn-cancel {
+    font-weight: 500;
+    font-family: Poppins, 'sans-serif';
+    color: white;
+    background-color: red;
+}
